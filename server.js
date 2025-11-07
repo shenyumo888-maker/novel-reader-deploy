@@ -185,7 +185,8 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // --- 核心功能 3: 处理 React-Router 的路由 ---
 // 对于所有其他未匹配的 GET 请求 (例如 /book/123)，都返回前端的 index.html
 // 这样浏览器就会加载 React 应用，然后由 React Router 来处理后续的路由逻辑
-app.get('*', (req, res) => {
+app.get(/^(?!\/api).*/, (req, res) => {
+  // 总是返回前端的入口文件 index.html
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
